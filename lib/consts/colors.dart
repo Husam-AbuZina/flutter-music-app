@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const bhColor = Color(0xff1F212C);
+const bgColor = Color(0xff1F212C);
 const whiteColor = Color(0xffFFFFFF);
 const slideColor = Color(0xff7E70FF);
 const buttonColor = Color(0xff60E950);

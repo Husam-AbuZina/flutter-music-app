@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'colors.dart';
+import './colors.dart';
 
 const bold = "bold";
 const regular = "regular";
