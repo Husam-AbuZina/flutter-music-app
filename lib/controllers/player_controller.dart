@@ -11,10 +11,32 @@ class PlayerController extends GetxController {
   var playIndex = 0.obs;
   var isPlaying = false.obs;
 
+  var duration = ''.obs;
+  var position = ''.obs;
+
+  var max = 0.0.obs;
+  var value = 0.0.obs;
+
   @override
   void onInit() {
     super.onInit();
     checkPermission();
+  }
+
+  updatePosition() {
+    audioPlayer.durationStream.listen((d) {
+      duration.value = d.toString().split(".")[0];
+      max.value = d!.inSeconds.toDouble();
+    });
+    audioPlayer.durationStream.listen((p) {
+      position.value = p.toString().split(".")[0];
+      value.value = p!.inSeconds.toDouble();
+    });
+  }
+
+  changeDurationToSeconds(seconds) {
+    var duration = Duration(seconds: seconds);
+    audioPlayer.seek(duration);
   }
 
   Future<void> playSong(String? uri, index) async {
@@ -31,6 +53,7 @@ class PlayerController extends GetxController {
       );
       await audioPlayer.play(); // Use await to ensure the method completes
       isPlaying(true);
+      updatePosition();
     } catch (e) {
       print("Error playing song: ${e.toString()}");
     }
