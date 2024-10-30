@@ -66,29 +66,41 @@ class Home extends StatelessWidget {
                 final song = snapshot.data![index]; // Access song data
                 return Container(
                   margin: const EdgeInsets.only(bottom: 4),
-                  child: ListTile(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    title: Text(
-                      song.title, // Use song title
-                      style: ourStyle(
-                        family: bold,
-                        size: 15,
+                  child: Obx(
+                    () => ListTile(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                    ),
-                    subtitle: Text(
-                      "$snapshot.data![index].artist" ??
-                          "Unknown Artist", // Handle null artist
-                      style: ourStyle(
-                        family: regular,
-                        size: 12,
+                      title: Text(
+                        song.title, // Use song title
+                        style: ourStyle(
+                          family: bold,
+                          size: 15,
+                        ),
                       ),
+                      subtitle: Text(
+                        "$snapshot.data![index].artist" ??
+                            "Unknown Artist", // Handle null artist
+                        style: ourStyle(
+                          family: regular,
+                          size: 12,
+                        ),
+                      ),
+                      leading: QueryArtworkWidget(
+                        id: snapshot.data![index].id,
+                        type: ArtworkType.AUDIO,
+                        nullArtworkWidget: const Icon(Icons.music_note,
+                            color: whiteColor, size: 32),
+                      ),
+                      trailing: controller.playIndex == index &&
+                              controller.isPlaying.value
+                          ? const Icon(Icons.play_arrow,
+                              color: whiteColor, size: 26)
+                          : null,
+                      onTap: () {
+                        controller.playSong(snapshot.data![index].uri, index);
+                      },
                     ),
-                    leading: const Icon(Icons.music_note,
-                        color: whiteColor, size: 32),
-                    trailing:
-                        Icon(Icons.play_arrow, color: whiteColor, size: 26),
                   ),
                 );
               },
