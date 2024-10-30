@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart'; // Ensure this is imported
 import '../consts/text_style.dart';
 import '../consts/colors.dart';
+import './player.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -98,7 +99,8 @@ class Home extends StatelessWidget {
                               color: whiteColor, size: 26)
                           : null,
                       onTap: () {
-                        controller.playSong(snapshot.data![index].uri, index);
+                        //controller.playSong(snapshot.data![index].uri, index);
+                        Get.to(() => const Player());
                       },
                     ),
                   ),
